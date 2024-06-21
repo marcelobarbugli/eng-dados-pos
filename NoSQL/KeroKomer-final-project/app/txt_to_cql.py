@@ -37,5 +37,5 @@ def merge_txt_files_to_cql(directory):
     print(f"Todos os arquivos .txt foram mesclados em {output_file_path}")
 
 # Exemplo de uso
-directory_path = r'C:\Users\010441631\Documents\GitHub\eng-dados-pos\eng-dados-pos\NoSQL\KeroKomer-final-project\assets'
+directory_path = r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\assets'
 merge_txt_files_to_cql(directory_path)
