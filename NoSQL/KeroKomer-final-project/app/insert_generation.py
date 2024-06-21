@@ -218,14 +218,14 @@ def write_statements_to_file(statements, file_path):
 
 # Caminhos dos arquivos
 file_paths = {
-    'usuarios': r'C:\Users\010441631\Documents\GitHub\eng-dados-pos\eng-dados-pos\NoSQL\KeroKomer-final-project\data\usuario_insert_statements.txt',
-    'restaurantes': r'C:\Users\010441631\Documents\GitHub\eng-dados-pos\eng-dados-pos\NoSQL\KeroKomer-final-project\data\restaurante_insert_statements.txt',
-    'cardapio': r'C:\Users\010441631\Documents\GitHub\eng-dados-pos\eng-dados-pos\NoSQL\KeroKomer-final-project\data\cardapio_insert_statements.txt',
-    'pedidos': r'C:\Users\010441631\Documents\GitHub\eng-dados-pos\eng-dados-pos\NoSQL\KeroKomer-final-project\data\pedido_insert_statements.txt',
-    'entregas': r'C:\Users\010441631\Documents\GitHub\eng-dados-pos\eng-dados-pos\NoSQL\KeroKomer-final-project\data\entrega_insert_statements.txt',
-    'agregados_vendas': r'C:\Users\010441631\Documents\GitHub\eng-dados-pos\eng-dados-pos\NoSQL\KeroKomer-final-project\data\agregVendas_insert_statements.txt',
-    'agregados_restaurantes': r'C:\Users\010441631\Documents\GitHub\eng-dados-pos\eng-dados-pos\NoSQL\KeroKomer-final-project\data\agregRestaurante_insert_statements.txt',
-    'agregados_entregadores': r'C:\Users\010441631\Documents\GitHub\eng-dados-pos\eng-dados-pos\NoSQL\KeroKomer-final-project\data\agregEntregadores_insert_statements.txt'
+    'usuarios': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\usuario_insert_statements.txt',
+    'restaurantes': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\restaurante_insert_statements.txt',
+    'cardapio': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\cardapio_insert_statements.txt',
+    'pedidos': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\pedido_insert_statements.txt',
+    'entregas': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\entrega_insert_statements.txt',
+    'agregados_vendas': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\agregVendas_insert_statements.txt',
+    'agregados_restaurantes': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\agregRestaurante_insert_statements.txt',
+    'agregados_entregadores': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\agregEntregadores_insert_statements.txt'
 }
 
 # Escrever os dados para os arquivos
