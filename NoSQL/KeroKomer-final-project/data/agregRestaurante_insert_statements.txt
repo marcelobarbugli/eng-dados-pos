@@ -1,0 +1,10 @@
+INSERT INTO agregados_avaliacoes_restaurantes (restaurante_id, nome, avaliacao_media, total_avaliacoes) VALUES (465096, 'Restaurante 1', 4.0, 453);
+INSERT INTO agregados_avaliacoes_restaurantes (restaurante_id, nome, avaliacao_media, total_avaliacoes) VALUES (610876, 'Restaurante 8', 4.5, 32);
+INSERT INTO agregados_avaliacoes_restaurantes (restaurante_id, nome, avaliacao_media, total_avaliacoes) VALUES (772186, 'Restaurante 7', 4.4, 480);
+INSERT INTO agregados_avaliacoes_restaurantes (restaurante_id, nome, avaliacao_media, total_avaliacoes) VALUES (365697, 'Restaurante 10', 4.8, 99);
+INSERT INTO agregados_avaliacoes_restaurantes (restaurante_id, nome, avaliacao_media, total_avaliacoes) VALUES (543884, 'Restaurante 4', 3.6, 477);
+INSERT INTO agregados_avaliacoes_restaurantes (restaurante_id, nome, avaliacao_media, total_avaliacoes) VALUES (281595, 'Restaurante 3', 3.6, 208);
+INSERT INTO agregados_avaliacoes_restaurantes (restaurante_id, nome, avaliacao_media, total_avaliacoes) VALUES (450666, 'Restaurante 9', 4.8, 236);
+INSERT INTO agregados_avaliacoes_restaurantes (restaurante_id, nome, avaliacao_media, total_avaliacoes) VALUES (872427, 'Restaurante 5', 4.5, 408);
+INSERT INTO agregados_avaliacoes_restaurantes (restaurante_id, nome, avaliacao_media, total_avaliacoes) VALUES (625762, 'Restaurante 2', 3.5, 303);
+INSERT INTO agregados_avaliacoes_restaurantes (restaurante_id, nome, avaliacao_media, total_avaliacoes) VALUES (916251, 'Restaurante 6', 3.3, 53);
