@@ -23,7 +23,7 @@ BEGIN BATCH
   UPDATE items_by_cart 
   SET total = 199.75
   WHERE pedido_id = 69582783
-  IF cart_subtotal = 469.75;
+  IF total = 469.75;
 APPLY BATCH;
 
 SELECT pedido_id, cliente_id, itens, 
