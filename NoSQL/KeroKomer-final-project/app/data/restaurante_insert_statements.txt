@@ -1,0 +1,10 @@
+INSERT INTO restaurantes (restaurante_id, nome, endereco, telefone, categoria, proprietario_id) VALUES ('285748', 'Restaurante 1', 'Endereço 1', '1100000000001', 'Japonesa', '644442');
+INSERT INTO restaurantes (restaurante_id, nome, endereco, telefone, categoria, proprietario_id) VALUES ('495774', 'Restaurante 2', 'Endereço 2', '1100000000002', 'Italiana', '381485');
+INSERT INTO restaurantes (restaurante_id, nome, endereco, telefone, categoria, proprietario_id) VALUES ('228525', 'Restaurante 3', 'Endereço 3', '1100000000003', 'Japonesa', '917924');
+INSERT INTO restaurantes (restaurante_id, nome, endereco, telefone, categoria, proprietario_id) VALUES ('552621', 'Restaurante 4', 'Endereço 4', '1100000000004', 'Mexicana', '445363');
+INSERT INTO restaurantes (restaurante_id, nome, endereco, telefone, categoria, proprietario_id) VALUES ('563208', 'Restaurante 5', 'Endereço 5', '1100000000005', 'Chinesa', '572813');
+INSERT INTO restaurantes (restaurante_id, nome, endereco, telefone, categoria, proprietario_id) VALUES ('341360', 'Restaurante 6', 'Endereço 6', '1100000000006', 'Japonesa', '841364');
+INSERT INTO restaurantes (restaurante_id, nome, endereco, telefone, categoria, proprietario_id) VALUES ('498355', 'Restaurante 7', 'Endereço 7', '1100000000007', 'Chinesa', '184383');
+INSERT INTO restaurantes (restaurante_id, nome, endereco, telefone, categoria, proprietario_id) VALUES ('588004', 'Restaurante 8', 'Endereço 8', '1100000000008', 'Brasileira', '459860');
+INSERT INTO restaurantes (restaurante_id, nome, endereco, telefone, categoria, proprietario_id) VALUES ('378057', 'Restaurante 9', 'Endereço 9', '1100000000009', 'Japonesa', '517552');
+INSERT INTO restaurantes (restaurante_id, nome, endereco, telefone, categoria, proprietario_id) VALUES ('311147', 'Restaurante 10', 'Endereço 10', '1100000000010', 'Brasileira', '223539');

@@ -1,3 +1,4 @@
+import os
 import random
 import string
 from datetime import datetime, timedelta
@@ -158,11 +159,24 @@ def generate_entrega_statements(pedidos_ids_for_entregas, entregadores):
 # Gerar agregados de vendas
 def generate_agregados_vendas_statements(vendas_soma):
     statements = []
-    for (item_id, nome), quantidade_total in vendas_soma.items():
-        statement = (
-            f"INSERT INTO agregados_vendas (item_id, nome, quantidade_total) "
-            f"VALUES ({item_id}, '{nome}', {quantidade_total});"
-        )
+    start_date = datetime.now() - timedelta(days=365)
+    hora_aceitacao = start_date + timedelta(minutes=random.randint(0, 525600))
+    for key, quantidade_total in vendas_soma.items():
+        if len(key) == 3:
+            item_id, hora_aceitacao, nome = key
+            statement = (
+                f"INSERT INTO agregados_vendas_by_quantidade (date, item_id, nome_item, quantidade_total) "
+                f"VALUES ({hora_aceitacao}, {item_id}, '{nome}', {quantidade_total});"
+            )
+        elif len(key) == 2:
+            item_id, nome = key
+            statement = (
+                f"INSERT INTO agregados_vendas_by_quantidade (date, item_id, nome, quantidade_total) "
+                f"VALUES ({hora_aceitacao}, {item_id}, '{nome}', {quantidade_total});"
+            )
+        else:
+            raise ValueError("Unexpected key length in vendas_soma")
+        
         statements.append(statement)
     return statements
 
@@ -210,22 +224,30 @@ agregados_vendas_statements = generate_agregados_vendas_statements(vendas_soma)
 agregados_restaurantes_statements = generate_agregados_restaurantes_statements(num_agregados_restaurantes, restaurantes_rates)
 agregados_entregadores_statements = generate_agregados_entregadores_statements(entregas_count, entregador_ids)
 
-# Escrever para arquivos
-def write_statements_to_file(statements, file_path):
-    with open(file_path, 'w') as file:
+
+def write_statements_to_file(statements, relative_file_path):
+    # Extrai o diretório do caminho do arquivo
+    directory = os.path.dirname(relative_file_path)
+    
+    # Cria o diretório se ele não existir
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    
+    # Escreve as instruções no arquivo
+    with open(relative_file_path, 'w') as file:
         for statement in statements:
             file.write(statement + '\n')
 
 # Caminhos dos arquivos
 file_paths = {
-    'usuarios': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\usuario_insert_statements.txt',
-    'restaurantes': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\restaurante_insert_statements.txt',
-    'cardapio': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\cardapio_insert_statements.txt',
-    'pedidos': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\pedido_insert_statements.txt',
-    'entregas': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\entrega_insert_statements.txt',
-    'agregados_vendas': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\agregVendas_insert_statements.txt',
-    'agregados_restaurantes': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\agregRestaurante_insert_statements.txt',
-    'agregados_entregadores': r'.\eng-dados-pos\NoSQL\KeroKomer-final-project\data\agregEntregadores_insert_statements.txt'
+    'usuarios': r'.\data\usuario_insert_statements.txt',
+    'restaurantes': r'.\data\restaurante_insert_statements.txt',
+    'cardapio': r'.\data\cardapio_insert_statements.txt',
+    'pedidos': r'.\data\pedido_insert_statements.txt',
+    'entregas': r'.\data\entrega_insert_statements.txt',
+    'agregados_vendas': r'C:\Users\010441631\Documents\GitHub\eng-dados-pos\eng-dados-pos\NoSQL\KeroKomer-final-project\app\data\agregVendas_insert_statements.txt',
+    'agregados_restaurantes': r'.\data\agregRestaurante_insert_statements.txt',
+    'agregados_entregadores': r'.\data\agregEntregadores_insert_statements.txt'
 }
 
 # Escrever os dados para os arquivos

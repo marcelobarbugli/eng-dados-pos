@@ -15,9 +15,10 @@ cqlsh
 ✅ Create the `kerokomer_key` keyspace:
 ```
 CREATE KEYSPACE kerokomer_key
-WITH replication = {
-  'class': 'NetworkTopologyStrategy', 
-  'DC-Houston': 1 };
+WITH REPLICATION = {
+'class' : 'SimpleStrategy',
+'replication_factor' : 1
+};
 ```
 
 ✅ Set the current working keyspace:
