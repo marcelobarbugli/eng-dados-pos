@@ -62,7 +62,7 @@ SELECT * FROM agregados_vendas_by_quantidade WHERE date = '2024-01-30' limit 10;
 SELECT * FROM agregados_entregadores  WHERE tipo = 'entregador' ORDER BY total_entregas DESC ALLOW FILTERING;
 ```
 
-✅ Consulta para Top 10 Restaurantes:
+✅ Consulta para Top 5 Restaurantes:
 ```
 SELECT * FROM agregados_avaliacoes_restaurantes WHERE tipo = 'restaurante' ORDER BY avaliacao_media, total_avaliacoes LIMIT 5 ALLOW FILTERING;
 ```
