@@ -5,17 +5,24 @@ db_path = 'mydb.db'
 conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
+# Drop das views, se existirem
+cursor.execute('DROP VIEW IF EXISTS v_satisfacao_geral;')
+cursor.execute('DROP VIEW IF EXISTS v_reclamacoes_clientes;')
+cursor.execute('DROP VIEW IF EXISTS v_crescimento_empresa;')
+cursor.execute('DROP VIEW IF EXISTS v_comparacao_segmentos;')
+cursor.execute('DROP VIEW IF EXISTS v_indicadores_financeiros;')
+
 # 1. View para Análise de Satisfação Geral dos Empregados
 cursor.execute('''
 CREATE VIEW IF NOT EXISTS v_satisfacao_geral AS
-SELECT
+SELECT DISTINCT
     employer_name,
     AVG(Geral) AS media_geral,
     AVG(Cultura_e_valores) AS media_cultura_valores,
     AVG(Diversidade_e_inclusao) AS media_diversidade_inclusao,
     AVG(Qualidade_de_vida) AS media_qualidade_vida,
     AVG(Alta_lideranca) AS media_alta_lideranca,
-    AVG(Remuneração_e_beneficios) AS media_remuneracao_beneficios,
+    AVG(Remuneracao_e_beneficios) AS media_remuneracao_beneficios,
     AVG(Oportunidades_de_carreira) AS media_oportunidades_carreira
 FROM
     dados_finais
@@ -26,7 +33,7 @@ GROUP BY
 # 2. View para Análise de Reclamações versus Clientes
 cursor.execute('''
 CREATE VIEW IF NOT EXISTS v_reclamacoes_clientes AS
-SELECT
+SELECT DISTINCT
     Instituicao_financeira,
     Ano,
     Trimestre,
@@ -43,7 +50,7 @@ WHERE
 # 3. View para Análise de Crescimento ao Longo do Tempo
 cursor.execute('''
 CREATE VIEW IF NOT EXISTS v_crescimento_empresa AS
-SELECT
+SELECT DISTINCT
     employer_name,
     Ano,
     Trimestre,
@@ -58,14 +65,14 @@ GROUP BY
 # 4. View para Comparação de Segmentos
 cursor.execute('''
 CREATE VIEW IF NOT EXISTS v_comparacao_segmentos AS
-SELECT
+SELECT DISTINCT
     Segmento_x,
     AVG(Geral) AS media_geral,
     AVG(Cultura_e_valores) AS media_cultura_valores,
     AVG(Diversidade_e_inclusao) AS media_diversidade_inclusao,
     AVG(Qualidade_de_vida) AS media_qualidade_vida,
     AVG(Alta_lideranca) AS media_alta_lideranca,
-    AVG(Remuneração_e_beneficios) AS media_remuneracao_beneficios,
+    AVG(Remuneracao_e_beneficios) AS media_remuneracao_beneficios,
     AVG(Oportunidades_de_carreira) AS media_oportunidades_carreira
 FROM
     dados_finais
@@ -76,7 +83,7 @@ GROUP BY
 # 5. View para Análise de Indicadores Financeiros
 cursor.execute('''
 CREATE VIEW IF NOT EXISTS v_indicadores_financeiros AS
-SELECT
+SELECT DISTINCT
     Instituicao_financeira,
     Ano,
     Trimestre,
