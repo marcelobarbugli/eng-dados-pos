@@ -1,6 +1,8 @@
 import pandas as pd
 import sqlite3
-from config.define import silver_path, gold_path
+from sqlalchemy import create_engine
+import unidecode
+from config.define import silver_path, gold_path, mysql
 
 
 def read_text_files():
@@ -68,6 +70,15 @@ def load_into_sqlite(csv_path, db_path='database.sqlite'):
     df.to_sql('dados_finais', conn, if_exists='replace', index=False)
     conn.close()
 
+def load_into_mysql(csv_path, mysql_info):
+    conn =  create_engine(f'mysql+mysqlconnector://{mysql_info['user']}:{mysql_info['password']}@{mysql_info['host']}/{mysql_info['database']}')
+    df = pd.read_csv(csv_path)
+    df.columns = [unidecode.unidecode(col).replace('-', '') for col in df.columns]
+    df.columns = [unidecode.unidecode(col).replace(' ', '_') for col in df.columns]
+    df.columns = [unidecode.unidecode(col).replace('__', '_') for col in df.columns]
+
+    df.to_sql('dados_finais', conn, if_exists='replace', index=False)
+
 def main():
     df_empregados, df_bancos, df_reclamacoes = read_text_files()
     df_final = normalize_and_merge(df_empregados, df_bancos, df_reclamacoes)
@@ -79,3 +90,6 @@ def main():
     
     # Load the data into SQLite
     load_into_sqlite(csv_path)
+    
+    # Load the data into SQLite
+    load_into_mysql(csv_path, mysql)
