@@ -1,17 +1,6 @@
 import os
 import pandas as pd
-
-# Diretório contendo o arquivo TSV
-diretorio = r'\Dados\Bancos\EnquadramentoInicia_v2.tsv' # Caso necessário, insira aqui o caminho para o primeiro diretório!
-# Caminho completo para o arquivo TSV
-caminho_completo = os.path.join(diretorio)
-# Diretório onde o JSON será salvo
-output_directory = r'\data\bronze'
-
-# Estrutura de colunas padrão baseada nas colunas do TSV
-colunas_padrao = [
-    'Segmento', 'CNPJ', 'Nome'
-]
+from config.define import raw_bancos_path, bronze_path
 
 # Função para carregar o arquivo TSV
 def carregar_tsv(caminho_arquivo, colunas_padrao):
@@ -43,20 +32,32 @@ def carregar_tsv(caminho_arquivo, colunas_padrao):
     return df
 
 # Verificar se o diretório de saída existe, criá-lo se não existir
-if not os.path.exists(output_directory):
-    os.makedirs(output_directory)
+def execute():
+    # Diretório contendo o arquivo TSV
+    diretorio = rf'{raw_bancos_path}/EnquadramentoInicia_v2.tsv' # Caso necessário, insira aqui o caminho para o primeiro diretório!
+    # Caminho completo para o arquivo TSV
+    caminho_completo = os.path.join(diretorio)
+    # Diretório onde o JSON será salvo
+    output_directory = bronze_path
+    
+    # Estrutura de colunas padrão baseada nas colunas do TSV
+    colunas_padrao = [
+        'Segmento', 'CNPJ', 'Nome'
+    ]
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
 
-# Carregar o TSV
-df = carregar_tsv(caminho_completo, colunas_padrao)
-if not df.empty:
-    print("Conteúdo do DataFrame:")
-    print(df.head())
+    # Carregar o TSV
+    df = carregar_tsv(caminho_completo, colunas_padrao)
+    if not df.empty:
+        print("Conteúdo do DataFrame:")
+        print(df.head())
 
-    # Caminho para salvar o JSON
-    json_file_path = os.path.join(output_directory, r'\data\bronze\bancos.json')
+        # Caminho para salvar o JSON
+        json_file_path = os.path.join(output_directory, 'bancos.json')
 
-    # Salvar o DataFrame em um arquivo JSON
-    df.to_json(json_file_path, orient='records', lines=True, force_ascii=False)
-    print(f"Arquivo JSON salvo em: {json_file_path}")
-else:
-    print("Erro: Nenhum dado foi carregado.")
+        # Salvar o DataFrame em um arquivo JSON
+        df.to_json(json_file_path, orient='records', lines=True, force_ascii=False)
+        print(f"Arquivo JSON salvo em: {json_file_path}")
+    else:
+        print("Erro: Nenhum dado foi carregado.")

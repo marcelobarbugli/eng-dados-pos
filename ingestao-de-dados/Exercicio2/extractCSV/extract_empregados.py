@@ -1,36 +1,64 @@
 import os
 import pandas as pd
 import json
+from config.define import raw_empregados_path, bronze_path
 
-# Diretórios contendo os arquivos CSV
-diretorios = {
-    'diretorio1': r'\Dados\Empregados' # Caso necessário, insira aqui o caminho para o primeiro diretório!
-}
 
-# Estrutura de colunas padrão com CNPJ
-colunas_padrao_empregados_cnpj = [
-    'employer_name', 'reviews_count', 'culture_count', 'salaries_count',
-    'benefits_count', 'employer-website', 'employer-headquarters',
-    'employer-founded', 'employer-industry', 'employer-revenue', 'url',
-    'Geral', 'Cultura e valores', 'Diversidade e inclusão',
-    'Qualidade de vida', 'Alta liderança', 'Remuneração e benefícios',
-    'Oportunidades de carreira', 'Recomendam para outras pessoas(%)',
-    'Perspectiva positiva da empresa(%)', 'CNPJ', 'Nome', 'match_percent'
-]
+def execute():
+    # Diretórios contendo os arquivos CSV
+    diretorios = {
+        'diretorio1': raw_empregados_path # Caso necessário, insira aqui o caminho para o primeiro diretório!
+    }
 
-# Estrutura de colunas padrão com Segmento
-colunas_padrao_empregados_seg = [
-    'employer_name', 'reviews_count', 'culture_count', 'salaries_count',
-    'benefits_count', 'employer-website', 'employer-headquarters',
-    'employer-founded', 'employer-industry', 'employer-revenue', 'url',
-    'Geral', 'Cultura e valores', 'Diversidade e inclusão',
-    'Qualidade de vida', 'Alta liderança', 'Remuneração e benefícios',
-    'Oportunidades de carreira', 'Recomendam para outras pessoas(%)',
-    'Perspectiva positiva da empresa(%)', 'Segmento', 'Nome', 'match_percent'
-]
+    # Estrutura de colunas padrão com CNPJ
+    colunas_padrao_empregados_cnpj = [
+        'employer_name', 'reviews_count', 'culture_count', 'salaries_count',
+        'benefits_count', 'employer-website', 'employer-headquarters',
+        'employer-founded', 'employer-industry', 'employer-revenue', 'url',
+        'Geral', 'Cultura e valores', 'Diversidade e inclusão',
+        'Qualidade de vida', 'Alta liderança', 'Remuneração e benefícios',
+        'Oportunidades de carreira', 'Recomendam para outras pessoas(%)',
+        'Perspectiva positiva da empresa(%)', 'CNPJ', 'Nome', 'match_percent'
+    ]
+
+    # Estrutura de colunas padrão com Segmento
+    colunas_padrao_empregados_seg = [
+        'employer_name', 'reviews_count', 'culture_count', 'salaries_count',
+        'benefits_count', 'employer-website', 'employer-headquarters',
+        'employer-founded', 'employer-industry', 'employer-revenue', 'url',
+        'Geral', 'Cultura e valores', 'Diversidade e inclusão',
+        'Qualidade de vida', 'Alta liderança', 'Remuneração e benefícios',
+        'Oportunidades de carreira', 'Recomendam para outras pessoas(%)',
+        'Perspectiva positiva da empresa(%)', 'Segmento', 'Nome', 'match_percent'
+    ]
+    # Carregar e ajustar CSVs do diretório de empregados
+    empregados_df = carregar_csvs_empregados(diretorios['diretorio1'], colunas_padrao_empregados_cnpj, colunas_padrao_empregados_seg)
+
+    # Verificar e exibir o DataFrame final
+    if not empregados_df.empty:
+        print("Conteúdo de empregados_df:")
+        print(empregados_df.head())
+
+        # Substituir valores None por 'null' no DataFrame
+        empregados_df.fillna('null', inplace=True)
+
+        # Convertendo o DataFrame para um dicionário
+        empregados_dict = empregados_df.to_dict(orient='records')
+
+        # Convertendo o dicionário para JSON
+        empregados_json = json.dumps(empregados_dict, ensure_ascii=False, indent=4)
+
+        # Exibindo o JSON resultante
+        print(empregados_json)
+
+        # Opcionalmente, salvar o JSON em um arquivo
+        with open(f'{bronze_path}/empregados.json', 'w', encoding='utf-8') as json_file:
+            json_file.write(empregados_json)
+    else:
+        print("Erro: Nenhum dado foi carregado de 'diretorio1'.")
 
 # Função para carregar arquivos CSV de um diretório e garantir conformidade com as colunas padrão
-def carregar_csvs_empregados(diretorio):
+def carregar_csvs_empregados(diretorio, colunas_padrao_empregados_cnpj, colunas_padrao_empregados_seg):
     df_acumulado = pd.DataFrame()  # Cria DataFrame vazio
     for arquivo in os.listdir(diretorio):
         if arquivo.endswith('.csv'):
@@ -79,29 +107,3 @@ def carregar_csvs_empregados(diretorio):
             except Exception as e:
                 print(f"Erro ao carregar {caminho_completo}: {e}")
     return df_acumulado
-
-# Carregar e ajustar CSVs do diretório de empregados
-empregados_df = carregar_csvs_empregados(diretorios['diretorio1'])
-
-# Verificar e exibir o DataFrame final
-if not empregados_df.empty:
-    print("Conteúdo de empregados_df:")
-    print(empregados_df.head())
-
-    # Substituir valores None por 'null' no DataFrame
-    empregados_df.fillna('null', inplace=True)
-
-    # Convertendo o DataFrame para um dicionário
-    empregados_dict = empregados_df.to_dict(orient='records')
-
-    # Convertendo o dicionário para JSON
-    empregados_json = json.dumps(empregados_dict, ensure_ascii=False, indent=4)
-
-    # Exibindo o JSON resultante
-    print(empregados_json)
-
-    # Opcionalmente, salvar o JSON em um arquivo
-    with open('data/bronze/empregados.json', 'w', encoding='utf-8') as json_file:
-        json_file.write(empregados_json)
-else:
-    print("Erro: Nenhum dado foi carregado de 'diretorio1'.")
