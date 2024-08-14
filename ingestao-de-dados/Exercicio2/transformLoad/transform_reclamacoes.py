@@ -28,8 +28,8 @@ def process_json_to_parquet(json_path, output_dir):
     df.replace('null', None, inplace=True)
 
     # Renomear 'Área' para 'CNPJ' se essa coluna existir
-    if 'Área' in df.columns:
-        df.rename(columns={'Área': 'CNPJ'}, inplace=True)
+    if 'CNPJ IF' in df.columns:
+        df.rename(columns={'CNPJ IF': 'CNPJ'}, inplace=True)
     else:
         print("A coluna 'Área' não foi encontrada no DataFrame para renomear para 'CNPJ'.")
 
