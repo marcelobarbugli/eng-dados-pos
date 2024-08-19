@@ -1,5 +1,5 @@
 
-# Exercício 3 - Engenharia de Dados - Ingestão de Dados
+# Exercício 3 - Engenharia de Dados - Ingestão de Dados - Grupo 1
 
 Este repositório contém a solução para o **Exercício 3** da disciplina de Engenharia de Dados, focando em ingestão de dados. O objetivo principal deste exercício é aplicar técnicas de ingestão, transformação e armazenamento de dados utilizando processamento Spark (databricks community) e PostgreSQL.
 
